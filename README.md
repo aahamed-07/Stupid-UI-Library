@@ -5,4 +5,5 @@ Hi, this collection of web components are made from scratch and the purpose is t
 provide free material to achieve faster development and designing of websites.
 
 In future hopefully this project will be Open Sourced.
-Regards and feel free to contact me if you want to collaborate and lets build something stunningly creative.
+Regards and feel free to contact me if you want to collaborate,
+lets build something stunningly creative.
