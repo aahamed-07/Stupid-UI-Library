@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Horizontal Scroll Snap</title>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		list-style: none;
+		text-decoration: none;
+		font-family: poppins, sans-serif;
+	}
+
+	.ssnp-wrapper{
+		display: flex;
+		overflow: auto;
+		scroll-snap-type: x mandatory;
+		scroll-behavior: smooth;
+		transition: 0.5s ease;
+	}
+
+	.ssnp-section{
+		height: 100vh;
+		min-width: 100vw;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 14vw;
+		color: #fff;
+		scroll-snap-align: start;
+		flex: none;
+
+	}
+
+	.ssnp-wrapper .ssnp-section:nth-child(1){
+		background: #ffff00;
+		color: #000;
+
+	}
+
+	.ssnp-wrapper .ssnp-section:nth-child(2){
+		background: cyan;
+		color: #333;
+		
+	}
+
+	.ssnp-wrapper .ssnp-section:nth-child(3){
+		background: purple;
+		
+	}
+
+	.ssnp-wrapper .ssnp-section:nth-child(4){
+		background: crimson;
+		
+	}
+
+	.ssnp-wrapper .ssnp-section:nth-child(5){
+		background: lime;
+		
+	}
+
+	html::-webkit-scrollbar{
+		display: none;
+	}
+
+	.ssnp-section::-webkit-scrollbar{
+		/*height: 0;*/
+		width: 0;
+	}
+
+	.ssnp-navbar{
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		gap: 15px;
+		font-size: 25px;
+		font-weight: 700;
+		background: #333;
+		color: #f2f2f2;
+
+	}
+
+	nav{
+		position: sticky;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 35px;
+
+		display: none;
+	}
+
+	.ssnp-navbar a{
+		float: left;
+  	display: block;
+  	color: #f2f2f2;
+  	text-align: center;
+  	padding: 4px 16px;
+  	text-decoration: none;
+  	font-size: 17px;
+	}
+
+	.ssnp-navbar a:hover{
+		background: #ddd;
+		color: #333;
+		/*height: 35px;*/
+	}
+
+	.active{
+		background: #ddd;
+		color: #333 !important;
+	}
+
+	html{
+		scroll-padding-top: 35px;
+		
+	}
+
+	@media screen and (max-width: 1024px){
+		.cont-txt{
+			font-size: 15px;
+		}
+		.ssnp-navbar a{
+			font-size: 10px;
+		}
+	}
+
+
+	
+</style>
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+	<nav class="ssnp-navbar">
+		Heading
+		<a href="#pg1" class="active">link1</a>
+		<a href="#pg2">link2</a>
+		<a href="#pg3">link3</a>
+		<a href="#pg4">link4</a>
+		<a href="#pg5">link5</a>
+	</nav>	
+
+
+	<div class="ssnp-wrapper">
+		<section class="ssnp-section ssnp-page" id="pg1">1</section>
+		<section class="ssnp-section ssnp-page" id="pg2">2</section>
+		<section class="ssnp-section ssnp-page" id="pg3">3</section>
+		<section class="ssnp-section ssnp-page" id="pg4">4</section>
+		<section class="ssnp-section ssnp-page" id="pg5">5</section>
+
+<!-- <script>
+$(document).ready(function(){
+  $('body').scrollspy({target: ".navbar", offset: 50});   
+});
+</script> -->
+
+<script>
+	let sec = document.querySelectorAll('.ssnp-page');
+	let links = document.querySelectorAll('nav a');
+
+	window.onscroll = () => {
+		sec.forEach(section => {
+			let right = window.scrollX;
+			let offset = section.offsetLeft + 60;
+			let width = section.offsetWidth;
+			let id = section.getAttribute('id');
+
+			if (right >= offset && right < offset + width) {
+				links.forEach(link => {
+					link.classList.remove('active');
+					document.querySelector('nav a[href*=' + id +']').classList.add('active');
+				})
+			}
+		})
+	};
+</script>
+</body>
+</html>

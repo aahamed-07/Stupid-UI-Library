@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Scrollable Tabs</title>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins&display=swap"
+      rel="stylesheet">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Poppins',sans-serif;
+		}
+
+		body{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			background: #5372F0;
+		}
+		.sctab-wrapper{
+			position: relative;
+/*			padding: 35px;*/
+			padding: 17px;
+			overflow-x: hidden;
+			max-width: 1000px;
+			background: #fff;
+/*			border-radius: 13px;*/
+			border-radius: 47px;
+		}
+		.sctab-wrapper .sctab-icon{
+			position: absolute;
+			top: 0;
+			height: 100%;
+			width: 120px;
+			display: flex;
+			align-items: center;
+		}
+		.sctab-icon:first-child{
+			left: 0;
+			display: none;
+			background: linear-gradient(90deg, #fff 70%, transparent);
+		}
+		.sctab-icon:last-child{
+			justify-content: flex-end;
+			right: 0;
+			background: linear-gradient(-90deg, #fff 70%, transparent);
+		}
+		.sctab-icon i{
+			width: 55px;
+			height: 55px;
+			cursor: pointer;
+			font-size: 1.2rem;
+			font-weight: 800;
+			text-align: center;
+			line-height: 55px;
+			border-radius: 50%;
+			background: #d5d8f2;
+		}
+
+		.sctab-icon i:hover{
+			background: #efedfb;
+		}
+		.sctab-icon:first-child i{
+			margin-left: 15px;
+
+		}
+		.sctab-icon:last-child i{
+			margin-right: 15px;
+			
+		}
+		.sctab-wrapper .sctabs-box{
+			display: flex;
+			gap: 12px;
+			list-style: none;
+			overflow-x: hidden;
+			scroll-behavior: smooth;
+		}
+		.sctabs-box.dragging{
+			scroll-behavior: auto;
+			cursor: grab;
+		}
+
+		.sctabs-box .sctab{
+			font-size: 1.07rem;
+			white-space: nowrap;
+			background: #f5f4fd;
+			padding: 13px 20px;
+			border-radius: 30px;
+			border: 1px solid #d8d5f2;
+			cursor: pointer;
+		}
+		.sctabs-box.dragging .sctab{
+			user-select: none;
+			pointer-events: none;
+		}
+
+		.sctabs-box .sctab.active{
+			color: #fff;
+			background: #5372F0;
+			border-color: transparent;
+		}
+
+		@media screen and (max-width:1024px) {
+			.sctab-wrapper{
+				width: 90%;
+			}
+
+			.sctabs-box .sctab{
+				font-size: 0.7rem;
+			}
+		}
+
+	</style>
+</head>
+<body>
+	<div class="sctab-wrapper">
+		<div class="sctab-icon"><i id="left" class="fa fa-angle-left"></i></div>
+		<ul class="sctabs-box" id="tabs_link">
+			<li class="sctab">Coding</li>
+			<li class="sctab active">Javascript</li>
+			<li class="sctab">Podcasts</li>
+			<li class="sctab">Databases</li>
+			<li class="sctab">Web Development</li>
+			<li class="sctab">Unboxing</li>
+			<li class="sctab">History</li>
+			<li class="sctab">Programming</li>
+			<li class="sctab">Gadgets</li>
+			<li class="sctab">Algorithms</li>
+			<li class="sctab">Comedy</li>
+			<li class="sctab">Gaming</li>
+			<li class="sctab">Share Market</li>
+			<li class="sctab">Smartphones</li>
+			<li class="sctab">Data Structure</li>
+		</ul>
+		<div class="sctab-icon"><i id="right" class="fa fa-angle-right"></i></div>
+	</div>
+
+<script>
+	const sctabsBox = document.querySelector(".sctabs-box"),
+	allTabs = document.querySelectorAll(".sctab"),
+	arrowIcons = document.querySelectorAll(".sctab-icon i");
+
+	let isDragging = false;
+
+	const handleIcons = () => {
+		let scrollVal = Math.round(sctabsBox.scrollLeft);
+		let maxScrollableWidth = sctabsBox.scrollWidth - sctabsBox.clientWidth;
+		console.log(maxScrollableWidth, scrollVal);
+		arrowIcons[0].parentElement.style.display = scrollVal > 0 ? "flex" : "none";
+		arrowIcons[1].parentElement.style.display = maxScrollableWidth > scrollVal ? "flex" : "none";
+	}
+
+	arrowIcons.forEach(icon => {
+		icon.addEventListener("click", () => {
+			//if clicked icon is left, reduce 350 from sctabsBox scrollLeft else add 
+			sctabsBox.scrollLeft += icon.id === "left" ? -350 : 350;
+			setTimeout(() => handleIcons(), 50); //calling handleIcons after 50 milliseconds
+		});
+	});
+
+	allTabs.forEach(tab => {
+		tab.addEventListener("click", () => {
+			//removing active class from the previous tab and adding to current clicked tab
+			sctabsBox.querySelector(".active").classList.remove("active");
+			tab.classList.add("active");
+		});
+	});
+
+	const dragging = (e) => {
+		if (!isDragging) return;
+		sctabsBox.classList.add("dragging");
+		console.log("dragging");
+		sctabsBox.scrollLeft -= e.movementX;
+		handleIcons();
+	}
+
+	const dragStop = () => {
+		isDragging = false;
+		sctabsBox.classList.remove("dragging");
+	}
+
+	sctabsBox.addEventListener("mousedown", () => isDragging = true);
+	sctabsBox.addEventListener("mousemove", dragging);
+	document.addEventListener("mouseup", dragStop);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Card Slider Responsive</title>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Poppins',sans-serif;
+		}
+
+		.crsl-box{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			padding: 0 35px;
+			background: linear-gradient(to left top, #031A9A, #8B53FF);
+		}
+
+		.crsl-wrapper{
+			max-width: 1100px;
+			width: 100%;
+			position: relative;
+		}
+
+		.crsl-wrapper i{
+			font-size: 1.67rem;
+			height: 50px;
+			width: 50px;
+			background: #fff;
+			text-align: center;
+			line-height: 50px;
+			border-radius: 50%;
+			cursor: pointer;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+		}
+
+		.crsl-wrapper i:first-child{
+			left: -22px;
+		}
+
+		.crsl-wrapper i:last-child{
+			right: -22px;
+		}
+
+		.crsl-wrapper .crsl-carousel{
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: calc((100% / 3) - 12px);
+			gap: 16px;
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+			scroll-behavior: smooth;
+/*			scrollbar-width: none;  This doesnot work*/
+		}
+
+		.crsl-carousel::-webkit-scrollbar {
+			display: none;
+		}
+
+		.crsl-carousel :where(.crsl-card, .crsl-img){
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		}
+
+		.crsl-carousel.no-transition{
+			scroll-behavior: auto;
+		}
+
+		.crsl-carousel.dragging {
+			scroll-snap-type: none;
+			scroll-behavior: auto;
+		}
+
+		.crsl-carousel.dragging .crsl-card{
+			cursor: grab;
+			user-select: none;
+		}
+
+		.crsl-carousel .crsl-card{
+			scroll-snap-align: start;
+			height: 342px;
+			list-style: none;
+			background: #fff;
+			border-radius: 8px;
+			display: flex;
+			cursor: pointer;
+			padding-bottom: 15px;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		}
+
+		.crsl-card .crsl-img img{
+			width: 140px;
+			height: 140px;
+			object-fit: cover;
+			border-radius: 50%;
+			border: 4px solid #fff;
+		}
+
+		.crsl-card h2{
+			font-weight: 500;
+			font-size: 1.56rem;
+			margin: 30px 0 5px;
+		}
+
+		.crsl-card span{
+			color: #6a6d78;
+			font-size: 1.31rem;
+		}
+
+		@media screen and (max-width:900px) {
+			.crsl-wrapper .crsl-carousel{
+				grid-auto-columns: calc((100% / 2) - 9px);
+			}
+		}
+
+		@media screen and (max-width:600px) {
+			.crsl-wrapper .crsl-carousel{
+				grid-auto-columns: 100%;
+			}
+		}
+
+
+	</style>
+</head>
+<body>
+<div class="crsl-box">
+	<div class="crsl-wrapper">
+		<i id="left" class="fa fa-angle-left arr-btn"></i>
+		<ul class="crsl-carousel">
+			<li class="crsl-card">
+				<div class="crsl-img">
+					<img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="img1.png" draggable="false">
+				</div>
+				<h2>Blanche Pearson</h2>
+				<span>Sales Manager</span>
+			</li>
+
+			<li class="crsl-card">
+				<div class="crsl-img">
+					<img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="img2.png" draggable="false">
+				</div>
+				<h2>Joenas Baruers</h2>
+				<span>Sales Manager</span>
+			</li>
+
+			<li class="crsl-card">
+				<div class="crsl-img">
+					<img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="img3.png" draggable="false">
+				</div>
+				<h2>Blanche Pearson</h2>
+				<span>Sales Manager</span>
+			</li>
+
+			<li class="crsl-card">
+				<div class="crsl-img">
+					<img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="img4.png" draggable="false">
+				</div>
+				<h2>James Wells</h2>
+				<span>Marketer</span>
+			</li>
+
+			<li class="crsl-card">
+				<div class="crsl-img">
+					<img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="img5.png" draggable="false">
+				</div>
+				<h2>Blanche Pearson</h2>
+				<span>Sales Manager</span>
+			</li>
+
+			<li class="crsl-card">
+				<div class="crsl-img">
+					<img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="img6.png" draggable="false">
+				</div>
+				<h2>Blanche Pearson</h2>
+				<span>Sales Manager</span>
+			</li>
+		</ul>
+		<i id="right" class="fa fa-angle-right arr-btn"></i>
+	</div>
+</div>
+
+<script>
+	const wrapper = document.querySelector(".crsl-wrapper");
+	const carousel = document.querySelector(".crsl-carousel");
+	const arrowBtns = document.querySelectorAll(".crsl-wrapper .arr-btn");
+	const firstCardWidth = carousel.querySelector(".crsl-card").offsetWidth;
+	const carouselChildrens = [...carousel.children];
+
+	let isDragging = false, startX, startScrollLeft;
+
+	//get the number of cards that can fit in the carousel at once 
+	let cardPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+
+	//Insert copies of the last few cards to beginning of carousel for infinite scrolling
+	carouselChildrens.slice(-cardPerView).reverse().forEach(card => {
+		carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+	});
+
+	//Insert copies of the first few cards to end of carousel for infinite scrolling
+	carouselChildrens.slice(0,cardPerView).forEach(card => {
+		carousel.insertAdjacentHTML("beforeend", card.outerHTML);
+	});
+
+
+	carouselChildrens.slice()
+
+	//Add event listners for the arrow buttons to scroll the carousel left and right
+	arrowBtns.forEach(btn => {
+		btn.addEventListener("click",() => {
+			carousel.scrollLeft += btn.id === "left" ? -firstCardWidth : firstCardWidth;
+		})
+	});
+
+	let dragStart = (e) => {
+		isDragging = true;
+		carousel.classList.add("dragging");
+		//Records the initial cursor and scroll position of the carousel
+		startX = e.pageX;
+		startScrollLeft = carousel.scrollLeft;
+	}
+
+	const dragging = (e) => {
+		if (!isDragging) return; //if isDragging is flase return from here
+		// Updates the scroll position of the carosuel based on the cursor movement
+		carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+	}
+
+	const dragStop = () => {
+		isDragging = false;
+		carousel.classList.remove("dragging");
+	}
+
+	const autoPlay = () => {
+		if(window.innerWidth < 800) return; //Return if window is smaller than 800px
+		timeoutId = setTimeout(() => carousel.scrollLeft += firstCardWidth, 2000);
+	}
+
+	autoPlay();
+
+	const infiniteScroll = () =>{
+		//If carousel at the beginning, scroll to the end
+		if (carousel.scrollLeft === 0) {
+			carousel.classList.add("no-transition");
+			carousel.scrollLeft = carousel.scrollWidth - ( 2 * carousel.offsetWidth);
+			carousel.classList.remove("no-transition");
+		}
+		//If carousel at the end, scroll to the beginning
+		else if(Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth){
+			carousel.classList.add("no-transition");
+			carousel.scrollLeft = carousel.offsetWidth;
+			carousel.classList.remove("no-transition");
+		}
+
+		// Clear existing timeout and start autoplay if mouse is not hovering over carousel
+		clearTimeout(timeoutId);
+		if (!wrapper.matches(":hover")) autoPlay();
+	}
+
+	carousel.addEventListener("mousedown",dragStart);
+	carousel.addEventListener("mousemove",dragging);
+	carousel.addEventListener("mouseup",dragStop);
+	carousel.addEventListener("scroll", infiniteScroll);
+	wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
+	wrapper.addEventListener("mouseleave", autoPlay);
+</script>
+</body>
+</html>

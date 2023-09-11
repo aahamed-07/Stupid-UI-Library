@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Video Background</title>
+
+	<link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Roboto&display=swap"
+      rel="stylesheet">
+
+	<style>
+		*{
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		.bg{
+			font-family: Roboto,sans-serif;
+			background: #f1f1f1;
+		}
+
+		.vbg-home{
+			height: 100vh;
+			position: relative;
+		}
+
+		.vbg-vid{
+			object-fit: cover;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+		}
+
+		.vbg-overlay{
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			z-index: 2;
+/*			background: rgba(0, 0, 0, 0.6);*/
+			background:rgb(20 20 44 / 60%);
+		}
+
+		.vbg-home-content{
+			width: auto;
+			margin: 0 auto;
+			position: relative;
+			top: 150px;
+			color: #fff;
+			z-index: 3;
+		}
+
+		.vbg-home-content h1{
+			font-family: Roboto;
+			text-align: center;
+			text-transform: uppercase;
+			font-size: 85px;
+			line-height: 1.1;
+		}
+
+		.vbg-middle-line{
+			height: 170px;
+			width: 2px;
+			background: #fff;
+			margin: 40px auto;
+		}
+
+		.vbg-home-content button{
+			display: block;
+			font-size: 20px;
+			border: 1px solid #f1f1f1;
+			border-radius: 5px;
+			background: transparent;
+			color: #fff;
+			margin: 50px auto 0;
+			padding: 16px 30px;
+			cursor: pointer;
+		}
+
+
+		@media screen and (max-width:1024px) {
+			.vbg-vid{
+				object-fit: cover;
+
+			}
+
+			.vbg-home-content h1{
+				font-size: 30px;
+			}
+
+			.vbg-middle-line{
+				height: 70px;
+			}
+		}
+
+
+	</style>
+
+
+</head>
+<body>
+	<div class="vbg-home">
+		<video autoplay muted loop class="vbg-vid">
+			<source src="assets/pexels-taryn960x540-24fps.mp4" type="video/mp4">
+		</video>
+		<div class="vbg-overlay"></div>
+		<div class="vbg-home-content">
+			<h1>Holiday Trip</h1>
+			<div class="vbg-middle-line"></div>
+			<button>DISCOVER</button>
+		</div>
+	</div>
+</body>
+</html>

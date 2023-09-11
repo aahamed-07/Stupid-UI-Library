@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Read a CSV File using Chart JS</title>
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono&subset=cyrillic">
+
+	<style>
+
+	*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+
+			-webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
+    		color-adjust: exact !important;                 /* Firefox 48 – 96 */
+    		print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
+	}
+		input[type=file]::file-selector-button {
+  			margin-right: 20px;
+  			border: none;
+  			background: #084cdf;
+  			padding: 10px 20px;
+  			border-radius: 10px;
+  			color: #fff;
+  			cursor: pointer;
+  			transition: background .2s ease-in-out;
+  			font-family: 'roboto';
+}
+
+
+		input[type=file]::file-selector-button:hover {
+  			background: #0d45a5;
+}
+
+.upload-btn{
+			margin-right: 20px;
+  			border: none;
+  			background: #084cdf;
+  			padding: 10px 20px;
+  			border-radius: 10px;
+  			color: #fff;
+  			cursor: pointer;
+  			transition: background .2s ease-in-out;
+}
+
+.upload-btn:hover{
+	background: #0d45a5;
+}
+
+
+.revenue-btn{
+			margin-right: 20px;
+  			border: none;
+  			background: #ff0000;
+  			padding: 10px 20px;
+  			border-radius: 10px;
+  			color: #fff;
+  			cursor: pointer;
+  			transition: background .2s ease-in-out;
+}
+
+.revenue-btn:hover{
+	background: #ed0c0c;
+}
+
+
+.cost-btn{
+			margin-right: 20px;
+  			border: none;
+  			background: #084cdf;
+  			padding: 10px 20px;
+  			border-radius: 10px;
+  			color: #fff;
+  			cursor: pointer;
+  			transition: background .2s ease-in-out;
+}
+
+.cost-btn:hover{
+	background: #0d45a5;
+}
+
+.profit-btn{
+			margin-right: 20px;
+  			border: none;
+  			background: #31cf19;
+  			padding: 10px 20px;
+  			border-radius: 10px;
+  			color: #fff;
+  			cursor: pointer;
+  			transition: background .2s ease-in-out;
+}
+
+.profit-btn:hover{
+	background: #33b020;
+}
+
+
+.chartbox{
+	width: 470px;
+}
+
+
+	</style>
+</head>
+<body>
+	<div class="chartbox">
+		<canvas id="myChart" width="400" height="400"></canvas>
+	</div>
+
+	<input type="file" id="uploadfile" accept=".csv" name="choosefile">
+	<button class="upload-btn" id="uploadconfirm">Upload Confirm</button>
+
+	<hr>
+	<button class="revenue-btn" onclick="updateChart('revenueData')">Revenue Data</button>
+	<button class="cost-btn" onclick="updateChart('costData')">Cost Data</button>
+	<button class="profit-btn" onclick="updateChart('profitData')">Profit Data</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+	const revenueData = [];
+	const costData = [];
+	const profitData = [];
+	const uploadconfirm = document.getElementById('uploadconfirm').addEventListener('click',() => {
+		Papa.parse(document.getElementById('uploadfile').files[0],{
+			dowload: true,
+			header: true,
+			skipEmptyLines: true,
+			complete: function(results){
+				//console.log(results);
+				//console.log(results.data[0].revenue);
+				for(i=0;i<results.data.length;i++){
+					revenueData.push(results.data[i].revenue);
+					costData.push(results.data[i].cost);
+					profitData.push(results.data[i].profit);
+				}
+				console.log(revenueData);
+				console.log(costData);
+				console.log(profitData);
+			}
+
+		});
+	});
+
+
+//Setup block
+	const data = {labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+//Config block
+const config = {type: 'bar',
+    data,
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+};
+//Init Render block
+const myChart = new Chart(
+	document.getElementById('myChart'),
+	config
+	);
+
+	function updateChart(label){
+		//console.log(label);
+		myChart.data.datasets[0].label = label;
+
+		if(label === "revenueData"){
+			myChart.data.datasets[0].data = revenueData;
+		}
+		if(label === "costData"){
+			myChart.data.datasets[0].data = costData;
+		}
+		if(label === "profitData"){
+			myChart.data.datasets[0].data = profitData;
+		}
+		myChart.update();
+	};
+
+
+
+
+</script>
+</body>
+</html>

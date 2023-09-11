@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Masonry grid Layout</title>
+
+<style type="text/css">
+	.masonry {
+    --masonry-gap: 1rem;
+    --masonry-brick-width: 180px;
+    column-gap: var(--masonry-gap);
+    column-fill: initial;
+    column-width: var(--masonry-brick-width);
+}
+.masonry > * {
+    /* Sometimes elements get stuck between columns. */
+    break-inside: avoid;
+    /* add gap at bottom */
+    margin-bottom: var(--masonry-gap)
+}
+
+/* some styling not important */
+.brick {
+    color: var(--Text, #F0F0F0);
+    background: var(--Primary, #74baff);
+    padding:1rem;
+}
+
+.btn1{
+	color: #fff;
+	background: #3333;
+	border-radius: 30px;
+	border: none;
+	font-size: 30px;
+	padding: 10px;
+}
+</style>
+</head>
+<body>
+<!-- <div class="masonry">
+  <div class="brick"><span class="num">1</span><button class="btn1">Btn1</button></div>
+  <div class="brick"><span class="num">2</span><button class="btn1">Btn2</button></div>
+  <div class="brick"><span class="num">3</span><button class="btn1">Btn3</button></div>
+  <div class="brick"><span class="num">4</span><button class="btn1">Btn4</button></div>
+  <div class="brick"><span class="num">5</span><button class="btn1">Btn5</button></div>
+  <div class="brick"><span class="num">6</span><button class="btn1">Btn6</button></div>
+  <div class="brick"><span class="num">7</span><button class="btn1">Btn7</button></div>
+  <div class="brick"><span class="num">8</span><button class="btn1">Btn8</button></div>
+  <div class="brick"><span class="num">9</span><button class="btn1">Btn9</button></div>
+  <div class="brick"><span class="num">10</span><button class="btn1">Btn10</button></div>
+  
+  
+
+</div> -->
+
+
+<div class="masonry">
+  <div class="brick"><span class="num">1</span> Lorem ipsum dolor inventore saepe maiores delectus? Quaerat excepturi repudiandae magnam in corporis? Corporis veritatis necessitatibus rem veniam explicabo iure ea incidunt ut dicta?</div>
+  <div class="brick"><span class="num">2</span> Perspiciatis dolor qui deserunt animi, quidem temporibus nam doloremque maiores quae ullam, quibusdam consequatur consequuntur et corporis laboriosam est facere ratione quaerat odio quas dolore fugit rem officiis odit! Ad.</div>
+  <div class="brick"><span class="num">3</span> Earum, voluptatum! Minima sapiente deserunt optio blanditiis, non atque voluptates libero molestias ipsam officiis reprehenderit ipsum tenetur deleniti quo dolore ut odio vero distinctio, error temporibus doloribus. Fugiat, accusantium aperiam!</div>
+  <div class="brick"><span class="num">4</span> Voluptatibus vel magnam a cupiditate at veniam eos voluptates harum incidunt minus. Nisi alias quis ab odit perspiciatis quisquam officVoluptatibus vel magnam a cupiditate at veniam eos voluptates harum incidunt minus.</div>
+  <div class="brick"><span class="num">5</span> Suscipit cum nihil id voluptatem omnis officia dolor quia. Saepe perferendis, quas, fuga magnam iure soluta nemo eligendi dignissimos repudiandae maxime, beatae sapiente possimus obcaecati ab necessitatibus voluptatem numquam commodi.</div>
+  <div class="brick"><span class="num">6</span> Inventore maiores velit possimus dolore in ipsa praesentium obcaecati. Velit nihil porro pariatur id culpa earum soluta ipsa autem repellat quisquam iure facilis totam sint, quod a quae delectus perferendis.</div>
+  <div class="brick"><span class="num">7</span> Accusamus voluptates hic assumenda magni molestiae distinctio architecto, nihil error atque corporis, laudantium quo, dolores voluptatum exercitationem vero aliquid tenetur illo doloribus numquam! Autem impedit ab omnis qui optio rem!</div>
+  <div class="brick"><span class="num">8</span> Adipisci tempora id veniam quos eligendi amet aut beatae laborum? Impedit tenetur consequuntur quae rerum numquam, ut quisquam dolor odio, quia expedita harum, laborum corrupti? Debitis corporis quas odit consectetur.</div>
+  <div class="brick"><span class="num">9</span> Labore vel asperiores at deleniti, optio explicabo minus dolorum culpa, totam perspiciatis maiores voluptas dicta excepturi facere nesciunt dolor ducimus aperiam nihil sint harum necessitatibus? Ullam, cupiditate! Ab, tempora alias.</div>
+  <div class="brick"><span class="num">10</span> consequuntur temporibus omnis recusandae sunt, ratione excepturi quos voluptates obcaecati quo? Illum.</div>
+
+</div>
+</body>
+</html>

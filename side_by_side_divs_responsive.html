@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Responsive Divs side by side</title>
+
+<style>
+		@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+body
+{
+  background-color: #fcfcfc;
+}
+.sbs-container
+{
+  text-align: center;
+  padding: 15px;  
+}
+.sbs-left-div
+{
+  display: inline-block;
+  max-width: 300px;
+  text-align: left;
+  padding: 30px;
+  background-color: #ddd;
+  border-radius: 3px;
+  margin: 15px;
+  vertical-align: top;
+}
+.sbs-right-div
+{
+  display: inline-block;
+  max-width: 400px;
+  text-align: left;
+  padding: 30px;
+  background-color: #ddd;
+  border-radius: 3px;
+  margin: 15px;
+}
+.left-text, .right-text
+{
+  font: 14px 'Source Code Pro', monospace;
+	color: #333;
+}
+@media screen and (max-width: 600px) 
+{
+  .sbs-left-div, .sbs-right-div
+    {
+       max-width: 100%;
+    }
+}
+	
+</style>
+
+</head>
+<body>
+	<div class="sbs-container">
+    <div class="sbs-left-div left-text">Dolor consequat vulputate vel, odio duis, qui vero, nulla suscipit qui in quis dignissim diam ullamcorper feugait, lorem. Ullamcorper adipiscing aliquip. Odio nulla et aliquam, quis facilisi.
+		<img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y29kZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" width="100%">
+	  </div>
+
+
+	   <div class="sbs-right-div right-text">Delenit et vero vero nonummy ad amet, vulputate eum consequat.
+		
+	   </div>
+  </div>
+</body>
+</html>

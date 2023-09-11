@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sidebar</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		.side-box{
+			height:auto;
+			width: ;
+			margin-left: 89px;
+		}
+
+		.side-tab{
+			width: auto;
+			text-align: center;
+			
+		}
+
+		.sidebar-btn{
+			margin-left: 100px;
+		}
+
+
+
+
+
+
+
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-dark">
+		<button class="navbar-toggler sidebar-btn" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+	</nav>
+	<div class="row side-box" >
+  <div class="col-4 w-auto" id="sidebar">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a class="list-group-item list-group-item-action active side-tab" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Home</a>
+      <a class="list-group-item list-group-item-action side-tab" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Profile</a>
+      <a class="list-group-item list-group-item-action side-tab" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Messages</a>
+      <a class="list-group-item list-group-item-action side-tab" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Settings</a>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...home</div>
+      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...profile</div>
+      <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...messages</div>
+      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...settings</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+</body>
+</html>

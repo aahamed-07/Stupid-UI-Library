@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CSS Text Animation</title>
+
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'poppins',sans-serif;
+		}
+
+		body{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			background: #343F4F;
+		}
+
+		.wrapper{
+			display: inline-flex;
+		}
+
+		.wrapper .static-txt{
+         	color: #fff;
+         	font-size: 80px;
+         	font-weight: 400;
+		}
+		.wrapper .dynamic-txts{
+       		margin-left: 15px;
+       		height: 90px;
+       		line-height: 90px;
+       		background: #343F4F;
+       		overflow: hidden;
+
+		}
+
+		.dynamic-txts li{
+			color: #FC6D6D;
+       		list-style: none;
+       		font-size: 80px;
+       		font-weight: 500;
+       		position: relative;
+       		top: 0;
+       		animation: slide 12s steps(4) infinite;
+
+		}
+
+		@keyframes slide{
+			100%{
+				top: -360px;
+
+			}
+		}
+		
+
+		.dynamic-txts li span{
+			position: relative;
+		}
+
+		.dynamic-txts li span::after{
+      		content: "";
+      		position: absolute;
+      		left: 0;
+      		height: 100%;
+      		width: 100%;
+      		background: #343F4F;
+      		border-left: 2px solid #FC6D6D;
+      		animation: typing 3s steps(10) infinite;
+
+		}
+
+		@keyframes typing {
+  			40%, 60%{
+    			left: calc(100% + 30px);
+  			}
+  			100%{
+    			left: 0;
+  			}
+		}
+
+
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="static-txt">I'm a </div>
+		<ul class="dynamic-txts">
+			<li><span>Web Developer</span></li>
+			<li><span>Graphic Designer</span></li>
+			<li><span>Contnet Writer</span></li>
+			<li><span>Freelancer</span></li>
+		</ul>
+	</div>
+</body>
+</html>

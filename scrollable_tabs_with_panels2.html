@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Responsive Scrollable Tabs</title>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+		:root{
+			--first-color: #2e2e41;
+			--second-color: #5b85ff;
+			--third-color: #434354;
+			--text-color: #fff;
+
+			--box-shadow: 0 5px 25px rgb(2, 2, 2, 0.1);
+			--text-shadow: 0 5px 25px rgb(2, 2, 2, 0.1);
+
+		}
+
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Poppins',sans-serif;
+		}
+
+		body{
+			background: var(--first-color);
+		}
+
+		section{
+			position: relative;
+			margin: 0 80px;
+			transition: 0.5s ease;
+		}
+
+		.main-box{
+			position: relative;
+		}
+
+		.tab-nav-bar{
+			position: relative;
+			margin: 65px 10px 40px 10px;
+		}
+
+		.tab-navigation{
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			max-width: fit-content;
+			margin: 0 auto;
+
+		}
+
+		.tab-menu{
+			color: var(--text-color);
+			list-style: none;
+			background: var(--third-color);
+			max-width: 800px;
+			padding: 10px;
+			white-space: nowrap;
+			border-bottom: 1px solid var(--third-color);
+			border-radius: 50px;
+			box-shadow: var(--box-shadow);
+		}
+		.tab-menu{
+			color: var(--text-color);
+			list-style: none;
+			background: var(--third-color);
+			max-width: 800px;
+			padding: 10px;
+			white-space: nowrap;
+			border-bottom: 1px solid var(--third-color);
+			border-radius: 50px;
+			box-shadow: var(--box-shadow);
+			overflow-x: auto;
+			user-select: none;
+			transition: 0.3s ease;
+			scroll-behavior: smooth;
+		}
+
+		.tab-menu.dragging{
+			scroll-behavior: unset;
+			cursor: grab;
+		}
+
+		.tab-menu::-webkit-scrollbar{
+			display: none;
+		}
+
+		.tab-btn{
+			color: var(--text-color);
+			display: inline-block;
+			font-size: 1em;
+			font-weight: 400;
+			margin: 0 2px;
+			padding: 10px 20px;
+			border-radius: 30px;
+			/*background: var(--second-color);*/
+
+		}
+
+		.tab-menu.dragging .tab-btn{
+			pointer-events: none;
+		}
+
+		.tab-btn:hover{
+			background: var(--first-color);
+		}
+
+		.tab-btn.active{
+			background: var(--second-color);
+		}
+
+		.left-btn, .right-btn{
+			position: absolute;
+			color: var(--text-color);
+			font-size: 1.8em;
+			padding: 10px;
+			cursor: pointer;
+		}
+
+		.left-btn{
+			left: 0;
+			background: linear-gradient(to left, transparent, var(--first-color) 80%);
+			border-top-left-radius: 30px;
+			border-bottom-left-radius: 30px;
+			display: none;
+			font-weight: 400;
+		}
+
+		.right-btn{
+			right: 0;
+			background: linear-gradient(to right, transparent, var(--first-color) 80%);
+			border-top-right-radius: 30px;
+			border-bottom-right-radius: 30px;
+			font-weight: 400;
+		}
+
+		/*=======Tab Contnet=======*/
+		.tab-content{
+			position: relative;
+			display: flex;
+			justify-content: center;
+			width: 100%;
+		}
+
+		.tab{
+			position: absolute;
+			top: 40px;
+			right: auto;
+			bottom: 0;
+			left: auto;
+			max-width: 1100px;
+			padding: 15px 50px;
+			transform: translateX(25px);
+			content-visibility: hidden;
+			opacity: 0;
+		}
+
+		.tab.active{
+			transform: translateX(0);
+			content-visibility: visible;
+			opacity: 1;
+			transition: 1s ease;
+		} 
+
+		.tab .row{
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin: 50px 0;
+			gap: 30px;
+		}
+
+		.tab .img-card{
+			position: relative;
+			width: 450px;
+			max-width: 450px;
+			border-radius: 20px;
+			overflow: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			box-shadow: var(--box-shadow);
+		}
+
+		.tab .img-card img{
+			width: 100%;
+		}
+
+		.right-column{
+			max-width: 800px;
+		}
+
+		.info .city, .info .description p{
+			color: var(--text-color);
+			margin-bottom: 10px;
+		}
+
+		.info .city{
+			font-size: 2em;
+
+		}
+
+		.country{
+			color: var(--third-color);
+			font-size: 3em;
+			font-weight: 700;
+			text-align: center;
+			text-shadow: var(--text-shadow);
+		}
+
+		/*======== Media Queries (max-width: 1050px) ==========*/
+		@media screen and (max-width: 1050px) {
+			section{
+				position: relative;
+				margin: 0 0px;
+			}
+
+			.tab-nav-bar{
+				position: sticky;
+				margin: 65px 20px 40px 25px;
+			}
+
+			.tab{
+
+				padding: 15px 25px;
+			}
+
+			.tab .row{
+				flex-direction: column;
+			}
+
+			.tab .img-card{
+				width: auto;
+				max-width: 600px;
+			}
+
+			.country{
+				font-size: 10vw;
+				padding-bottom: 50px;
+			}
+		}
+
+		.lnk-btn{
+			display: flex;
+			justify-content: end;
+		}
+
+		.lnk-btn a{
+			background: var(--second-color);
+			border-radius: 20px;
+			width: auto;
+			padding: 10px 13px;
+			color: var(--text-color);
+			text-decoration: none;
+			font-weight: 600;
+
+		}
+
+
+
+	</style>
+</head>
+<body>
+	<section class="main-box">
+		<div class="tab-nav-bar">
+			<div class="tab-navigation">
+				<i id="left" class="fa fa-angle-left left-btn"></i>
+				<i id="right" class="fa fa-angle-right right-btn"></i>
+				<ul class="tab-menu">
+					<li class="tab-btn active">Tokyo</li>
+					<li class="tab-btn">Cairo</li>
+					<li class="tab-btn">Rome</li>
+					<li class="tab-btn">Paris</li>
+					<li class="tab-btn">Mexico City</li>
+					<li class="tab-btn">Florence</li>
+					<li class="tab-btn">New York</li>
+					<li class="tab-btn">Moscow</li>
+					<li class="tab-btn">Sydney</li>
+					<li class="tab-btn">San Francisco</li>
+					<li class="tab-btn">Amsterdam</li>
+				</ul>
+			</div>
+		</div>
+
+		<!--  Tab contnet -->
+		<div class="tab-contnet">
+		  	<div class="tab active">
+		    	<div class="row">
+		      	<div class="left-cloumn">
+		        	<div class="img-card">
+		          	<img src="assets/slider_tabs/tokyo.jpg" alt="Tokyo">
+		        	</div>
+		      	</div>
+		      	<div class="right-column">
+		        	<div class="info">
+		          	<h2 class="city">Tokyo</h2>
+		          	<div class="description">
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae 	nulla officia iure ex dolorem cumque earum eum expedita. Unde dolor, 	eum.</p>
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae</p	>
+		            	<div class="lnk-btn">
+		            		<a href="#" class="">Travel</a>
+		            	</div>
+		            	
+		            	
+		          	</div>
+		        	</div>
+		      	</div>
+		    	</div>
+		    	<h1 class="country">Japan</h1>
+		  	</div>
+
+		  	<div class="tab">
+		    	<div class="row">
+		      	<div class="left-cloumn">
+		        	<div class="img-card">
+		          	<img src="assets/slider_tabs/cairo.jpg" alt="Cairo">
+		        	</div>
+		      	</div>
+		      	<div class="right-column">
+		        	<div class="info">
+		          	<h2 class="city">Cairo</h2>
+		          	<div class="description">
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae 	nulla officia iure ex dolorem cumque earum eum expedita. Unde dolor, 	eum.</p>
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae</p	>
+		          	</div>
+		        	</div>
+		      	</div>
+		    	</div>
+		    	<h1 class="country">Egypt</h1>
+		  	</div>
+
+		  	<div class="tab">
+		    	<div class="row">
+		      	<div class="left-cloumn">
+		        	<div class="img-card">
+		          	<img src="assets/slider_tabs/rome.jpg" alt="Rome">
+		        	</div>
+		      	</div>
+		      	<div class="right-column">
+		        	<div class="info">
+		          	<h2 class="city">Rome</h2>
+		          	<div class="description">
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae 	nulla officia iure ex dolorem cumque earum eum expedita. Unde dolor, 	eum.</p>
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae</p	>
+		          	</div>
+		        	</div>
+		      	</div>
+		    	</div>
+		    	<h1 class="country">Italy</h1>
+		  	</div>
+
+		  	<div class="tab">
+		    	<div class="row">
+		      	<div class="left-cloumn">
+		        	<div class="img-card">
+		          	<img src="assets/slider_tabs/paris.jpg" alt="Paris">
+		        	</div>
+		      	</div>
+		      	<div class="right-column">
+		        	<div class="info">
+		          	<h2 class="city">Paris</h2>
+		          	<div class="description">
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae 	nulla officia iure ex dolorem cumque earum eum expedita. Unde dolor, 	eum.</p>
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae</p	>
+		          	</div>
+		        	</div>
+		      	</div>
+		    	</div>
+		    	<h1 class="country">France</h1>
+		  	</div>
+
+		  	<div class="tab">
+		    	<div class="row">
+		      	<div class="left-cloumn">
+		        	<div class="img-card">
+		          	<img src="assets/slider_tabs/mexico.jpg" alt="Mexico City">
+		        	</div>
+		      	</div>
+		      	<div class="right-column">
+		        	<div class="info">
+		          	<h2 class="city">Mexico City</h2>
+		          	<div class="description">
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae 	nulla officia iure ex dolorem cumque earum eum expedita. Unde dolor, 	eum.</p>
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae</p	>
+		          	</div>
+		        	</div>
+		      	</div>
+		    	</div>
+		    	<h1 class="country">Mexico</h1>
+		  	</div>
+
+		  	<div class="tab">
+		    	<div class="row">
+		      	<div class="left-cloumn">
+		        	<div class="img-card">
+		          	<img src="assets/slider_tabs/florence.jpg" alt="Florence">
+		        	</div>
+		      	</div>
+		      	<div class="right-column">
+		        	<div class="info">
+		          	<h2 class="city">Florence</h2>
+		          	<div class="description">
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae 	nulla officia iure ex dolorem cumque earum eum expedita. Unde dolor, 	eum.</p>
+		            	<p>Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Voluptas 	explicabo animi quasi architecto est, eligendi sapiente error beatae</p	>
+		          	</div>
+		        	</div>
+		      	</div>
+		    	</div>
+		    	<h1 class="country">Italy</h1>
+		  	</div>
+
+
+		</div>	
+
+	</section>
+
+
+
+
+	<!--==============Main JS================-->
+	<script>
+		//js for tab navigation horizontal scroll buttons
+		const btnLeft = document.querySelector(".left-btn");
+		const btnRight = document.querySelector(".right-btn");
+		const tabMenu = document.querySelector(".tab-menu");
+
+		const IconVisibility = () => {
+			let scrollLeftValue = Math.ceil(tabMenu.scrollLeft);
+			// console.log("1.",scrollLeftValue);
+			let scrollableWidth = tabMenu.scrollWidth - tabMenu.clientWidth;
+			// console.log("2.",scrollableWidth);
+			btnLeft.style.display = scrollLeftValue > 0 ? "block" : "none"; 
+			btnRight.style.display = scrollableWidth > scrollLeftValue ? "block" : "none";
+		}
+
+		btnRight.addEventListener("click", () => {
+			tabMenu.scrollLeft += 150;
+			// IconVisibility();
+			setTimeout(() => IconVisibility(), 50);
+		});
+
+		btnLeft.addEventListener("click", () => {
+			tabMenu.scrollLeft -= 150;
+			// IconVisibility();
+			setTimeout(() => IconVisibility(), 50);
+		});
+
+		window.onload = function(){
+			btnRight.style.display = tabMenu.scrollWidth > tabMenu.clientWidth || tabMenu.scrollWidth >= window.innerWidth ? "block" : "none";
+			btnLeft.style.display = tabMenu.scrollWidth >= window.innerWidth ? "" : "none";
+		}
+
+		window.onresize = function(){
+			btnRight.style.display = tabMenu.scrollWidth > tabMenu.clientWidth || tabMenu.scrollWidth >= window.innerWidth ? "block" : "none";
+			btnLeft.style.display = tabMenu.scrollWidth >= window.innerWidth ? "" : "none";
+			let scrollLeftValue = Math.round(tabMenu.scrollLeft);
+
+			btnLeft.style.display = scrollLeftValue > 0 ? "block" : "none";
+		}
+
+		//JS to make the tab navigation draggable
+		let activeDrag = false;
+
+		tabMenu.addEventListener("mousemove",(drag) => {
+			if (!activeDrag) return;
+			tabMenu.scrollLeft -= drag.movementX;
+			IconVisibility();
+			tabMenu.classList.add("dragging");
+		});
+
+		document.addEventListener("mouseup", () => {
+			activeDrag = false;
+			tabMenu.classList.remove("dragging");
+		});
+
+		tabMenu.addEventListener("mousedown", () => {
+			activeDrag = true;
+		});
+
+		//JS to view tab contents on click of the tab buttons
+		const tabs = document.querySelectorAll(".tab");
+		const tabBtns = document.querySelectorAll(".tab-btn");
+
+		const tab_Nav = function(tabBtnClick){
+			tabBtns.forEach((tabBtn) => {
+				tabBtn.classList.remove("active");
+			});
+
+			tabs.forEach((tab) => {
+				tab.classList.remove("active");
+			});
+
+			tabBtns[tabBtnClick].classList.add("active");
+			tabs[tabBtnClick].classList.add("active");
+		}
+
+		tabBtns.forEach((tabBtn, i) => {
+			tabBtn.addEventListener("click", () => {
+				tab_Nav(i);
+			});
+		});
+	</script>
+</body>
+</html>
